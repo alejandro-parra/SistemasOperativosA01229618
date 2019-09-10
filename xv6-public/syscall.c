@@ -104,6 +104,7 @@ extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_shutdown(void);
+extern int sys_reboot(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -128,6 +129,7 @@ static int (*syscalls[])(void) = {
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
 [SYS_shutdown] sys_shutdown,
+[SYS_reboot] sys_reboot,
 };
 
 void
@@ -144,4 +146,13 @@ syscall(void)
             curproc->pid, curproc->name, num);
     curproc->tf->eax = -1;
   }
+}
+
+int sys_shutdown(void){
+    outw(0x604,0x2000);
+    return 0;
+}
+int sys_reboot(void){
+    outb(0x64,0xFE);
+    return 0;
 }
