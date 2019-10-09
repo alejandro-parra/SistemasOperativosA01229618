@@ -12,6 +12,11 @@ main(int argc, char **argv)
     exit();
   }
   for(i=1; i<argc; i++)
-    kill(atoi(argv[i]));
+    if(atoi(argv[i])==1){
+        printf(1,"anita lava la tina");
+    }
+    else{
+        kill(atoi(argv[i]));
+    }
   exit();
 }
